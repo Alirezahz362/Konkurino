@@ -1,0 +1,75 @@
+@use "/src/Sass/scss/bootstrap" as BS;
+// متغیرهای رنگ و اندازه (در صورت نیاز)
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+
+.reshte {
+  display: grid;
+  grid-template-columns: 1fr;
+
+  @media (max-width: $breakpoint-sm) {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+}
+
+.row {
+  > * {
+    padding: 0;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    display: grid;
+
+    margin-left: 2px;
+  }
+}
+
+.image {
+  position: absolute;
+  transition: transform 1s ease;
+  right:78%;
+  width: 470px;
+  top: 0px;
+  left: 0px;
+  @media (max-width: $breakpoint-sm) {
+  right:90% !important ;
+  top:-60% !important;
+  width:300px !important;
+}
+  @media (max-width: $breakpoint-md) {
+  right:67% !important ;
+
+}
+}
+
+.accordion-header {
+  width: 100%;
+  margin: 0;
+  background-image: url(/img/100x500.jpg);
+  background-position: center;
+  background-repeat:no-repeat !important;
+  background-size: cover;
+  border-radius: 0.4rem;
+  color: white;
+  
+  @media (max-width: $breakpoint-sm) {
+    writing-mode: horizontal-tb !important;
+    height: auto !important;
+    display: block;
+    width: 100%;
+  }
+
+}
+
+@media (max-width: $breakpoint-sm) {
+  .container-fluid {
+    height: auto !important;
+    width: 100%;
+  }
+
+  .accordion-body {
+    height: 500px !important;
+    width: 100%;
+  }
+}

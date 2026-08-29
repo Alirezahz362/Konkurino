@@ -1,0 +1,35 @@
+
+@import "/node_modules/bootstrap/scss/functions";
+@import "/node_modules/bootstrap/scss/variables";
+@import "/node_modules/bootstrap/scss/mixins";
+
+// custom font
+@import "/src/assets/custom-font/webfonts/css/style.css";
+
+// custom colors declaration
+$custom-colors: (
+  "purpleking": #c167ef,
+);
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+//custom spacer declaration
+$custom-spacer: (
+  6: $spacer * 5,
+  7: $spacer * 9,
+);
+$spacers: map-merge($spacers, $custom-spacer);
+
+// custom variable
+$purpleDark: mix($primary, $danger, 40);
+$purpleking:#c167ef;
+$navbar-light-active-color: $primary;
+$navbar-light-hover-color: $purpleDark;
+$dropdown-dark-bg: #c167ef;
+
+//custom size
+$font-size-lg: 3rem;
+$font-size-sm: 1rem;
+
+
+// وارد کردن Bootstrap کامل در انتها
+@import "/node_modules/bootstrap/scss/bootstrap.scss";
