@@ -3,6 +3,7 @@ import { Navigation } from "swiper/modules";
 import { Pagination } from "swiper/modules";
 import { EffectCoverflow } from "swiper/modules";
 import Card from "./Card";
+import Grid from "./Grid";
 
 // استایل‌های Swiper را وارد کنید
 import "swiper/css";
@@ -88,49 +89,44 @@ const Course = () => {
 
   return (
     <>
-      <div className="container-fluid py-3 my-5">
-        <h1 className="heading text-center">دوره آموزشی</h1>
-        <div className="row d-flex justify-content-center ">
-          <div className="col col-sm-2 col-md-3 w-100">
-            <Swiper
-              effect={"coverflow"}
-              grabCursor={true}
-              spaceBetween={10}
-              centeredSlides={true}
-              loop={true}
-              slidesPerView={"2.5"}
-              modules={[EffectCoverflow, Navigation, Pagination]}
-              coverflowEffect={{
-                rotate: 0,
-                stretch: 0,
-                depth: 100,
-                modifier: 3.5,
-              }}
-              navigation={{
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-                clickable: true,
-              }}
-              pagination={{
-                el: ".swiper-pagination",
-                clickable: true,
-              }}
-            >
-              {cardData.map((card, index) => (
-                <SwiperSlide key={index}>
-                  <Card {...card}></Card>
-                </SwiperSlide>
-              ))}
+      <Grid>
+        <Swiper
+          effect={"coverflow"}
+          grabCursor={true}
+          spaceBetween={10}
+          centeredSlides={true}
+          loop={true}
+          slidesPerView={"2.5"}
+          modules={[EffectCoverflow, Navigation, Pagination]}
+          coverflowEffect={{
+            rotate: 0,
+            stretch: 0,
+            depth: 100,
+            modifier: 3.5,
+          }}
+          navigation={{
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+            clickable: true,
+          }}
+          pagination={{
+            el: ".swiper-pagination",
+            clickable: true,
+          }}
+        >
+          {cardData.map((card, index) => (
+            <SwiperSlide key={index}>
+              <Card {...card}></Card>
+            </SwiperSlide>
+          ))}
 
-              <div className="slide-Control position-relative w-50 mx-auto my-2">
-                <div className="swiper-button-prev slider-arrow"></div>
-                <div className="swiper-button-next slider-arrow"></div>
-                <div className="swiper-pagination"></div>
-              </div>
-            </Swiper>
+          <div className="slide-Control position-relative w-50 mx-auto my-2">
+            <div className="swiper-button-prev slider-arrow"></div>
+            <div className="swiper-button-next slider-arrow"></div>
+            <div className="swiper-pagination"></div>
           </div>
-        </div>
-      </div>
+        </Swiper>
+      </Grid>
     </>
   );
 };

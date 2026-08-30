@@ -1,10 +1,9 @@
-import React, {useState } from "react";
+import {useState } from "react";
 import Major from "./Major";
 const Teachers = () => {
-  // حالت برای باز بودن آکاردیون‌ها
+  
   const [openSection, setOpenSection] = useState(null);
   
-  // حالت برای چرخش عکس و محتوای استاد
   const professors = [
     {
       name: "استاد اول",

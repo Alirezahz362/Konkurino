@@ -1,4 +1,10 @@
 const Major = (props) => {
+  const contentDefault =
+    "col-12 col-sm-8 col-md-8 col-lg-8 border rounded-3 p-3";
+  const tajrobi = "bg-danger";
+  const riazi = "bg-success";
+  const ensani = "bg-warning";
+
   //******************* Content Show Handler******************************* */
   return (
     <>
@@ -17,9 +23,14 @@ const Major = (props) => {
           </h2>
         </div>
       </div>
+
       {props.bakhshBaz === props.oSData && (
         <div
-          className="col-12 col-sm-8 col-md-8 col-lg-8 border rounded-3 bg-danger p-3"
+          className={`${contentDefault} 
+                ${props.oSData === "tasviri" ? tajrobi : " "} 
+                ${props.oSData === "riazi" ? riazi : " " } 
+                ${props.oSData === "ensani" ? ensani : " " } 
+                `}
           style={{ cursor: "pointer" }}
           onClick={props.ostadHandel}
         >
