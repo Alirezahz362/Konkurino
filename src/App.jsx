@@ -1,6 +1,6 @@
 import TopNavigation from "./components/TopNavigation"
 import NewCarousel from "./components/NewCarousel"
-import Teachers from "./components/Teachers/Teachers"
+import Accordion from "./components/Majors/Accordion"
 import Course from "./components/courses/Course"
 function App() {
 
@@ -8,7 +8,7 @@ function App() {
    <>
     <TopNavigation></TopNavigation>
     <NewCarousel></NewCarousel>
-    <Teachers></Teachers>
+    <Accordion></Accordion>
     <Course></Course>
    </>
    
