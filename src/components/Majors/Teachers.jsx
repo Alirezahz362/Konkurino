@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../Sass/scss/_TaechCards.scss";
+import "../../Sass/Accordion/_TaechCards.scss";
 export default function Teachers() {
   const [rotation, setRotarion] = useState(0);
   const handelRotation = () => {
@@ -8,7 +8,7 @@ export default function Teachers() {
 
   return (
     <>
-      <div className="row">
+      <div className="row bg-info">
         <div className="col" onClick={handelRotation}>
           <div className="circle-position">
             <div

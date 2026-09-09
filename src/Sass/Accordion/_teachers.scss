@@ -1,5 +1,5 @@
-@use "/src/Sass/scss/bootstrap" as BS;
-@use "/src/Sass/scss/TaechCards" as TC;
+@use "/src/Sass/bootstrap" as BS;
+@use "../Accordion/TaechCards" as TC;
 // متغیرهای رنگ و اندازه (در صورت نیاز)
 .btn {
   writing-mode: horizontal-tb;

@@ -1,4 +1,4 @@
-import TopNavigation from "./components/TopNavigation"
+import TopNavigation from "./components/Navbar/TopNavigation"
 import NewCarousel from "./components/NewCarousel"
 import Accordion from "./components/Majors/Accordion"
 import Course from "./components/courses/Course"

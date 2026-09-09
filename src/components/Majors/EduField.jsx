@@ -1,8 +1,6 @@
-import Tajrobi from "./Tajrobi";
-import Riazi from "./Riazi";
-import Ensani from "./Ensani";
 const EduField = (props) => {
-  const { hAccordionClick, field, isOpen, btnName } = props;
+  const { hAccordionClick ,btnName } = props;
+
 
   //******************* Content Show Handler******************************* */
   return (
@@ -16,6 +14,7 @@ const EduField = (props) => {
           {btnName}
         </button>
       </div>
+
     </>
   );
 };
