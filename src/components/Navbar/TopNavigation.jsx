@@ -1,18 +1,13 @@
 import { useState } from "react";
+
 const TopNavigation = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [courseMenu, setCourseMenu] = useState(false);
-
   return (
     <>
       <header dir="ltr">
-        <nav className="navbar navbar-expand-md bg-purpleking fixed-top">
+        <nav className="navbar navbar-expand-md bg-brand">
           <div className="container-fluid">
-            <a href="" className="navbar-brand text-light fw-bold fs-2">
-              <i id="brandIcon" className="fa-solid fa-user-graduate"></i>
-              کنکورینو
-            </a>
-
             <button
               className="navbar-toggler fs-1 p-0 fw-bold"
               type="button"
@@ -30,7 +25,7 @@ const TopNavigation = () => {
             >
               <ul className="navbar-nav ms-auto" dir="rtl">
                 <li className="nav-item">
-                  <a href="#" className="nav-link active">
+                  <a href="#" className="nav-link ">
                     خونه
                   </a>
                 </li>

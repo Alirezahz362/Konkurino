@@ -5,7 +5,7 @@ import Tajrobi from "./Tajrobi";
 import Ensani from "./Ensani";
 import Riazi from "./Riazi";
 
-import "../../Sass/Accordion/_teachers.scss";
+import "../../styles/components/Accordion/_teachers.scss";
 const Accordion = () => {
   const [openSection, setOpenSection] = useState(null);
 

@@ -1,0 +1,16 @@
+@mixin flex-center {
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+
+@mixin transition {
+
+    transition:all .3s ease;
+
+}

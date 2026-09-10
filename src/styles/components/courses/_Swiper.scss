@@ -1,4 +1,4 @@
-@use "/src/Sass/bootstrap" as V;
+@use "../../bootstrap/custom-bootstrap" as CB;
 
 .swiper_slide {
   width: 100%;
@@ -9,7 +9,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: V.$purpleking;
+  background-color: CB.$brand-secondary;
 
   .card-image {
     background-color: white;
@@ -28,7 +28,7 @@
     height: 30px;
     padding: 5px;
     color: white;
-    background-color: V.$purpleking;
+    background-color: CB.$brand-secondary;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -37,7 +37,7 @@
   }
 
   .swiper-pagination-bullet-active {
-    background: V.$purpleking;
+    background: CB.$brand-secondary;
   }
   @media(max-width: 576px) {
     .swiper-pagination {

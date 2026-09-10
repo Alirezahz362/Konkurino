@@ -1,0 +1,102 @@
+// Bootstrap Functions
+@import "/node_modules/bootstrap/scss/functions";
+
+
+// Import variables
+
+@import "../abstracts/variables";
+
+
+// Bootstrap original variables
+
+@import "/node_modules/bootstrap/scss/variables";
+
+@import "/node_modules/bootstrap/scss/mixins";
+
+
+
+// ==========================
+// Custom Theme Colors
+// ==========================
+
+
+$custom-colors: (
+
+    "brand": $brand-primary,
+
+    "secondary-brand": $brand-secondary,
+
+    "accent": $brand-accent
+
+);
+
+
+$theme-colors: map-merge(
+    $theme-colors,
+    $custom-colors
+);
+
+
+
+// ==========================
+// Custom Spacing
+// ==========================
+
+
+$custom-spacers: (
+
+    6: $spacer * 5,
+
+    7: $spacer * 9
+
+);
+
+
+$spacers: map-merge(
+    $spacers,
+    $custom-spacers
+);
+
+
+
+// ==========================
+// Bootstrap Overrides
+// ==========================
+$body-bg: #F8FAFC;
+
+$body-color: #1E293B;
+
+// Navbar
+
+$navbar-light-active-color:
+$brand-primary;
+
+
+$navbar-light-hover-color:
+$brand-secondary;
+
+
+
+// Dropdown
+
+$dropdown-dark-bg:
+$brand-primary;
+
+
+
+// Font sizes
+
+
+$font-size-lg:
+$font-size-lg-custom;
+
+
+$font-size-sm:
+$font-size-sm-custom;
+// Font family
+$font-family-base: "Mahboubeh", sans-serif;
+
+
+// Import full Bootstrap
+
+@import "/node_modules/bootstrap/scss/bootstrap";

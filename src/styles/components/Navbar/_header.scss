@@ -1,0 +1,21 @@
+header .header-icon {
+
+
+    background:transparent;
+
+
+    border:1px solid var(--border-color);
+
+
+    color:var(--text-color);
+
+
+
+    &:hover {
+
+        color:var(--secondary-color);
+
+    }
+
+
+}

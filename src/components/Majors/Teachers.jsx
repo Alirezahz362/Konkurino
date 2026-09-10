@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../Sass/Accordion/_TaechCards.scss";
+import "../../styles/components/Accordion/_TaechCards.scss";
 export default function Teachers() {
   const [rotation, setRotarion] = useState(0);
   const handelRotation = () => {

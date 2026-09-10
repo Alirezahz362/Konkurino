@@ -1,0 +1,29 @@
+// Abstracts
+
+@import "./abstracts/variables";
+
+@import "./abstracts/mixins";
+//base
+@import "./base/fonts";
+
+@import "./base/utilities";
+
+// Bootstrap
+
+@import "./bootstrap/custom-bootstrap";
+
+// Theme
+
+@import "./themes/theme";
+
+// Global
+@import "./base/global";
+//Components
+
+@import "./components";
+
+body {
+  background-color: var(--background-color);
+
+  color: var(--text-color);
+}

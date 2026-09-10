@@ -1,0 +1,39 @@
+.navbar {
+
+
+    .navbar-brand {
+
+        color:white;
+
+
+        &:hover {
+
+            color:var(--secondary-color);
+
+        }
+
+    }
+
+
+
+    .nav-link {
+
+
+        color:rgba(255,255,255,.85);
+
+
+        transition:.3s;
+
+
+        &:hover {
+
+            color:var(--secondary-color);
+
+        }
+
+
+    }
+
+
+
+}
