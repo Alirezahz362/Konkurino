@@ -1,21 +1,14 @@
-header .header-icon {
+header {
+min-height: 60px;
+.header-icon {
+    background: transparent;
 
+    border: 1px solid var(--border-color);
 
-    background:transparent;
-
-
-    border:1px solid var(--border-color);
-
-
-    color:var(--text-color);
-
-
+    color: var(--text-color);
 
     &:hover {
-
-        color:var(--secondary-color);
-
+      color: var(--secondary-color);
     }
-
-
+  }
 }

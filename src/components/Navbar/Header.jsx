@@ -1,11 +1,11 @@
-import { FaBell, FaMoon,FaSun, FaUser, FaUserPlus } from "react-icons/fa";
+import { FaBell, FaMoon, FaSun, FaUser, FaUserPlus } from "react-icons/fa";
 import { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 const Header = () => {
   const { darkMode, toggleTheme } = useContext(ThemeContext);
 
   return (
-    <header className="container-fluid py-2 shadow-sm bg-surface">
+    <header className="container-fluid py-1 shadow-sm bg-surface">
       <div className="container">
         <div
           className="
