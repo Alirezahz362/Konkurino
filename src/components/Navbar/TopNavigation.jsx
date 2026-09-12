@@ -1,36 +1,40 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const TopNavigation = () => {
-  const [openMenu, setOpenMenu] = useState(false);
   const [courseMenu, setCourseMenu] = useState(false);
+  const courseMenuRef = useRef(null);
+
+  useEffect(() => {
+    const hanldeClickOutside = (Event) => {
+      if (
+        courseMenuRef.current &&
+        !courseMenuRef.current.contains(Event.target)
+      ) {
+        setCourseMenu(false);
+      }
+    };
+
+    document.addEventListener("mousedown", hanldeClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", hanldeClickOutside);
+    };
+  }, []);
   return (
     <>
-      <header dir="ltr">
-        <nav className="navbar navbar-expand-md bg-brand">
+      <header>
+        <nav className="navbar bg-brand">
           <div className="container-fluid">
-            <button
-              className="navbar-toggler fs-1 p-0 fw-bold"
-              type="button"
-              onClick={() => setOpenMenu(!openMenu)}
-              data-bs-target="#hamBtn"
-            >
-              <span
-                id="btnIcon"
-                className={`fas  ${openMenu ? "fa-book-open" : "fa-book"}`}
-              ></span>
-            </button>
-            <div
-              className={`collapse navbar-collapse ${openMenu ? "show" : ""}`}
-              id="hamBtn"
-            >
-              <ul className="navbar-nav ms-auto" dir="rtl">
+            <div className="navbar-content">
+              <ul className="navbar-nav navbar-links">
                 <li className="nav-item">
                   <a href="#" className="nav-link ">
                     خونه
                   </a>
                 </li>
                 <li className="nav-item">
-                  <div className="dropdown">
+                  <div className="dropdown"
+                  ref={courseMenuRef}>
                     <button
                       className="nav-link dropdown-toggle bg-transparent border-0"
                       onClick={() => setCourseMenu(!courseMenu)}
@@ -73,25 +77,20 @@ const TopNavigation = () => {
                     درباره ما / تماس با ما{" "}
                   </a>
                 </li>
-
-                <form
-                  action=""
-                  className="d-flex h-25"
-                  style={{ width: "300px" }}
-                >
-                  <div className="input-group" dir="ltr">
-                    <input
-                      className="form-control rounded-start-5"
-                      type="search"
-                      placeholder="Search"
-                      aria-label="Search"
-                    />
-                    <button className="btn btn-sm btn-outline-light rounded-end-5">
-                      search
-                    </button>
-                  </div>
-                </form>
               </ul>
+              <form className="navbar-search">
+                <div className="search-box">
+                  <input
+                    className="search-input"
+                    type="search"
+                    placeholder="جستجو در کنکورینو..."
+                  />
+
+                  <button className="search-btn">
+                    <i className="fa-solid fa-magnifying-glass"></i>
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </nav>

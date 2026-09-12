@@ -50,8 +50,8 @@ const Header = () => {
 
           {/* لوگو */}
           <div className="d-flex align-items-center gap-2 flex-shrink-0">
-            <i id="brandIcon" className="fa-solid fa-user-graduate fs-5"></i>
             <h1 className="m-0 fw-bold text-theme">کنکورینو</h1>
+            <i id="brandIcon" className="fa-solid fa-user-graduate fs-5"></i>
           </div>
 
           {/* نوتیف و تم */}
