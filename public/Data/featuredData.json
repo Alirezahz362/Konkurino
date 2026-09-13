@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "badge": "آزمون نزدیک",
+    "title": "آزمون جامع کنکور",
+    "description": "آزمون شبیه سازی شده با تحلیل کامل عملکرد.",
+    "buttonText": "ثبت نام آزمون",
+    "image": "/img/konkuri.png",
+    "link": "/exams/1"
+  },
+  {
+    "id": 2,
+    "badge": "دوره ویژه",
+    "title": "جمع بندی زیست کنکور",
+    "description": "مرور سریع و حرفه‌ای برای روزهای پایانی.",
+    "buttonText": "مشاهده دوره",
+    "image": "/img/zist.png",
+    "link": "/courses/biology"
+  }
+]

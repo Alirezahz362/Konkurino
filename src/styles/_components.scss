@@ -2,7 +2,9 @@
 @use './components/Navbar/navbar';
 @use './components/Navbar/courseSheet';
 @use './components/Navbar/bottomNav';
-@use './components/carousel/carousel';
+@use '../layouts/mainLayout';
+@use './components/FeaturedSection/featuredSection';
+//@use './components/carousel/carousel';
 @use './components/Accordion/TaechCards';
 @use './components/Accordion/teachers';
 @use './components/courses/Swiper';

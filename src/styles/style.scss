@@ -22,3 +22,9 @@
 
 @import "./components";
 
+body {
+  font-family: "Mahboubeh", sans-serif;
+  background: var(--background-color);
+  color: var(--text-color);
+  padding-bottom: 100px;
+}

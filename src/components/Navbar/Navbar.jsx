@@ -1,26 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 
-const Navbar = () => {
+const Navbar = (props) => {
+  
+  const { scrolled } = props;
+  
   const [courseMenu, setCourseMenu] = useState(false);
-
   const courseMenuRef = useRef(null);
-
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   useEffect(() => {
     const hanldeClickOutside = (Event) => {
