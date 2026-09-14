@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from "react";
+import useScroll from "../../hooks/useScroll";
 
-const Navbar = (props) => {
-  
-  const { scrolled } = props;
+const Navbar = () => {
   
   const [courseMenu, setCourseMenu] = useState(false);
   const courseMenuRef = useRef(null);
+
+  const scrolled = useScroll(50);
 
   useEffect(() => {
     const hanldeClickOutside = (Event) => {

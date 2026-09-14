@@ -1,27 +1,18 @@
-import { useState, useEffect } from "react";
 
 import Header from "../components/Navbar/Header";
 import Navbar from "../components/Navbar/Navbar";
 import BottomNav from "../components/Navbar/BottomNav";
+import useScroll from "../hooks/useScroll";
+
 
 const MainLayout = ({ children }) => {
-  const [scrolled, setScrolled] = useState(false);
+  
+  const scrolled = useScroll(50)
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
   return (
     <>
       <Header />
-      <Navbar scrolled={scrolled} />
+      <Navbar />
       <main className={scrolled ? 'nav-scrolled' : ""}
       style={{}}>{children}</main>
       <BottomNav />
