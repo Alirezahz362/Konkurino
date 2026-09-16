@@ -1,0 +1,101 @@
+[
+  {
+    "id": 1,
+    "major": "experimental",
+    "title": "زیست شناسی",
+    "icon": "🧬"
+  },
+  {
+    "id": 2,
+    "major": "experimental",
+    "title": "شیمی",
+    "icon": "⚗️"
+  },
+  {
+    "id": 3,
+    "major": "experimental",
+    "title": "فیزیک",
+    "icon": "⚛️"
+  },
+  {
+    "id": 4,
+    "major": "experimental",
+    "title": "ریاضی",
+    "icon": "📐"
+  },
+
+  {
+    "id": 5,
+    "major": "math",
+    "title": "حسابان",
+    "icon": "📊"
+  },
+  {
+    "id": 6,
+    "major": "math",
+    "title": "هندسه",
+    "icon": "📏"
+  },
+  {
+    "id": 7,
+    "major": "math",
+    "title": "گسسته",
+    "icon": "🔢"
+  },
+  {
+    "id": 8,
+    "major": "math",
+    "title": "فیزیک",
+    "icon": "⚛️"
+  },
+
+  {
+    "id": 9,
+    "major": "humanities",
+    "title": "علوم و فنون ادبی",
+    "icon": "📚"
+  },
+  {
+    "id": 10,
+    "major": "humanities",
+    "title": "جامعه شناسی",
+    "icon": "🌍"
+  },
+  {
+    "id": 11,
+    "major": "humanities",
+    "title": "اقتصاد",
+    "icon": "💰"
+  },
+  {
+    "id": 12,
+    "major": "humanities",
+    "title": "روانشناسی",
+    "icon": "🧠"
+  },
+
+  {
+    "id": 13,
+    "major": "general",
+    "title": "ادبیات فارسی",
+    "icon": "📖"
+  },
+  {
+    "id": 14,
+    "major": "general",
+    "title": "عربی",
+    "icon": "📝"
+  },
+  {
+    "id": 15,
+    "major": "general",
+    "title": "دین و زندگی",
+    "icon": "📘"
+  },
+  {
+    "id": 16,
+    "major": "general",
+    "title": "زبان انگلیسی",
+    "icon": "🌐"
+  }
+]

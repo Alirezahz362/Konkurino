@@ -4,7 +4,4 @@
 @use './components/Navbar/bottomNav';
 @use '../layouts/mainLayout';
 @use './components/FeaturedSection/featuredSection';
-//@use './components/carousel/carousel';
-@use './components/Accordion/TaechCards';
-@use './components/Accordion/teachers';
-@use './components/courses/Swiper';
+@use './components/course/courses.scss'

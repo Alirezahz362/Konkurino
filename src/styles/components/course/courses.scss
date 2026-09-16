@@ -1,0 +1,415 @@
+.categories-section {
+
+  padding: 4rem 0;
+
+
+  .categories-wrapper {
+
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: row;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 1.5rem;
+
+    flex-wrap: wrap;
+
+  }
+
+}
+
+
+/* =========================
+   Base Card Styles
+========================= */
+
+.major-card,
+.subject-card {
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+
+  cursor: pointer;
+
+
+  background: var(--surface-color);
+
+  color: var(--text-color);
+
+
+  border: 1px solid var(--border-color);
+
+
+  box-shadow:
+    0 10px 30px rgba(15, 23, 42, .08);
+
+
+  transition:
+    transform .3s ease,
+    box-shadow .3s ease,
+    border-color .3s ease;
+
+
+  &:hover {
+
+    border-color: var(--secondary-color);
+
+    box-shadow:
+      0 20px 45px rgba(15, 23, 42, .15);
+
+  }
+
+
+  &:active {
+
+    transform: scale(.97);
+
+  }
+
+
+  .category-icon {
+
+    width: 70px;
+
+    height: 70px;
+
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+
+    border-radius: 50%;
+
+
+    background: rgba(20, 184, 166, .12);
+
+
+    font-size: 2.5rem;
+
+
+    margin-bottom: 1rem;
+
+  }
+
+
+  h3 {
+
+    margin: 0;
+
+    color: var(--text-color);
+
+    font-size: 1.1rem;
+
+  }
+
+}
+
+
+/* =========================
+   Major Cards (رشته ها)
+========================= */
+
+.major-card {
+
+  width: 220px;
+  height: 180px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  border-radius: 30px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(20, 184, 166, 0.19),
+    var(--surface-color)
+  );
+
+  border: 1px solid rgba(20, 184, 166, 0.25);
+
+  box-shadow:
+    0 12px 30px rgba(15, 23, 42, 0.12);
+
+
+  transition:
+    transform .3s ease,
+    box-shadow .3s ease;
+
+
+  .category-icon {
+
+    width: 70px;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(20, 184, 166, 0.18);
+
+    font-size: 2.5rem;
+
+    margin-bottom: 1rem;
+
+  }
+
+
+  h3 {
+
+    color: var(--text-color);
+
+  }
+
+
+  &:hover {
+
+    transform: translateY(-10px);
+
+    box-shadow:
+      0 20px 45px rgba(15, 23, 42, 0.18);
+
+  }
+
+}
+/* =========================
+   Subject Cards (درس ها)
+========================= */
+
+.subject-card {
+
+  width: 170px;
+  height: 140px;
+
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+
+  cursor: pointer;
+
+
+  border-radius: 22px;
+
+
+  background: linear-gradient(
+    145deg,
+    rgba(20, 184, 166, 0.19),
+    var(--surface-color)
+  );
+
+
+  border: 1px solid rgba(20, 184, 166, 0.2);
+
+
+  box-shadow:
+    0 8px 22px rgba(15, 23, 42, 0.1);
+
+
+  color: var(--text-color);
+
+
+  transition:
+    transform .3s ease,
+    box-shadow .3s ease,
+    border-color .3s ease;
+
+
+
+  .category-icon {
+
+    width: 60px;
+
+    height: 60px;
+
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+
+    border-radius: 50%;
+
+
+    background: rgba(20, 184, 166, 0.15);
+
+
+    font-size: 2rem;
+
+
+    margin-bottom: .8rem;
+
+  }
+
+
+
+  h3 {
+
+    margin: 0;
+
+    font-size: 1rem;
+
+    color: var(--text-color);
+
+  }
+
+
+
+  &:hover {
+
+    transform: translateY(-8px);
+
+
+    border-color: var(--secondary-color);
+
+
+    box-shadow:
+      0 16px 35px rgba(15, 23, 42, 0.16);
+
+  }
+
+}
+
+
+/* =========================
+   Back Button
+========================= */
+
+.back-button {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: .5rem;
+
+
+  padding: .7rem 1.2rem;
+
+
+  margin-bottom: 2rem;
+
+
+  border: 1px solid var(--border-color);
+
+
+  border-radius: 999px;
+
+
+  background: var(--surface-color);
+
+
+  color: var(--text-color);
+
+
+  font-size: 1rem;
+
+
+  cursor: pointer;
+
+
+  transition:
+
+    background .3s ease,
+
+    color .3s ease,
+
+    transform .3s ease,
+
+    border-color .3s ease;
+
+
+
+  &:hover {
+
+    background: var(--brand-color);
+
+    border-color: var(--brand-color);
+
+    color: var(--surface-color);
+
+
+    transform: translateX(-5px);
+
+  }
+
+}
+
+
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 768px) {
+
+
+  .categories-section {
+
+    padding: 3rem 1rem;
+
+  }
+
+
+  .categories-wrapper {
+
+    gap: 1rem;
+
+  }
+
+
+  .major-card {
+
+    width: 160px;
+
+    height: 150px;
+
+  }
+
+
+  .subject-card {
+
+    width: 150px;
+
+    height: 130px;
+
+  }
+
+
+  .category-icon {
+
+    width: 60px !important;
+
+    height: 60px !important;
+
+    font-size: 2rem !important;
+
+  }
+
+}
