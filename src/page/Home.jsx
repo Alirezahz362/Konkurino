@@ -1,5 +1,6 @@
 import FeaturedSection from "../components/FeaturedSection/FeaturedSection";
-import MajorCategories from "../components/courses/MajorCategories";
+import MajorCategories from "../components/category/MajorCategories";
+import CourseSection from "../components/courses/CourseSection";
 
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
     <>
       <FeaturedSection></FeaturedSection>
       <MajorCategories></MajorCategories>
+      <CourseSection></CourseSection>
     </>
   );
 };

@@ -5,7 +5,7 @@
     "title": "آزمون جامع کنکور",
     "description": "آزمون شبیه سازی شده با تحلیل کامل عملکرد.",
     "buttonText": "ثبت نام آزمون",
-    "image": "/img/konkuri.png",
+    "image": "/img/konkuri.webp",
     "link": "/exams/1"
   },
   {
@@ -14,7 +14,7 @@
     "title": "جمع بندی زیست کنکور",
     "description": "مرور سریع و حرفه‌ای برای روزهای پایانی.",
     "buttonText": "مشاهده دوره",
-    "image": "/img/zist.png",
+    "image": "/img/zist.webp",
     "link": "/courses/biology"
   }
 ]

@@ -4,4 +4,5 @@
 @use './components/Navbar/bottomNav';
 @use '../layouts/mainLayout';
 @use './components/FeaturedSection/featuredSection';
-@use './components/course/courses.scss'
+@use './components/course/category.scss';
+@use './components/course/course.scss';
