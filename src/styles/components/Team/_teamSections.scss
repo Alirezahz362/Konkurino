@@ -1,0 +1,306 @@
+/* =========================
+   Team Section
+========================= */
+
+.team-section {
+  padding: 7rem 0;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(20, 184, 166, 0.12),
+      transparent 35%
+    ),
+    var(--background-color);
+
+  color: var(--text-color);
+
+  .team-container {
+    width: min(1400px, 90%);
+
+    margin: auto;
+  }
+
+  .team-header {
+    text-align: center;
+
+    margin-bottom: 3rem;
+
+    h2 {
+      font-size: 2.4rem;
+
+      color: var(--text-color);
+
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: var(--muted-text);
+
+      line-height: 2;
+    }
+  }
+
+  .team-wrapper {
+    display: flex;
+
+    gap: 1.5rem;
+
+    min-height: 480px;
+
+    direction: rtl;
+
+    @media (max-width: 992px) {
+      flex-direction: column;
+
+      min-height: auto;
+    }
+  }
+}
+
+/* =========================
+   Team Card
+========================= */
+
+.team-card {
+  position: relative;
+
+  flex: 1;
+
+  min-height: 480px;
+
+  border-radius: 30px;
+
+  overflow: hidden;
+
+  cursor: pointer;
+
+  background: var(--surface-color);
+
+  border: 1px solid var(--border-color);
+
+  transition:
+    flex 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:not(.active) {
+    .team-image img {
+      filter: grayscale(100%) brightness(0.6);
+    }
+
+    .team-content {
+      opacity: 0;
+
+      transform: translateY(20px);
+
+      pointer-events: none;
+    }
+  }
+
+  &.active {
+    flex: 3.2;
+
+    border-color: var(--secondary-color);
+
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+
+    .team-image img {
+      filter: grayscale(0) brightness(0.9);
+    }
+
+    .team-content {
+      opacity: 1;
+
+      transform: translateY(0);
+    }
+  }
+
+  /* IMAGE */
+
+  .team-image {
+    position: absolute;
+
+    inset: 0;
+
+    img {
+      width: 100%;
+
+      height: 100%;
+
+      object-fit: cover;
+
+      transition: filter 0.5s ease;
+    }
+
+    &::after {
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
+
+      background: linear-gradient(
+        to top,
+
+        rgba(15, 23, 42, 0.95) 10%,
+
+        rgba(15, 23, 42, 0.45) 55%,
+
+        transparent
+      );
+    }
+  }
+
+  /* CONTENT */
+
+  .team-content {
+    position: absolute;
+
+    bottom: 0;
+
+    right: 0;
+
+    left: 0;
+
+    padding: 2rem;
+
+    z-index: 2;
+
+    opacity: 0;
+
+    transform: translateY(20px);
+
+    transition:
+      opacity 0.4s ease,
+      transform 0.4s ease;
+
+    color: white;
+
+    .team-role {
+      display: inline-block;
+
+      padding: 0.45rem 1rem;
+
+      background: var(--secondary-color);
+
+      color: white;
+
+      border-radius: 30px;
+
+      font-size: 0.85rem;
+
+      margin-bottom: 0.8rem;
+    }
+
+    h3 {
+      font-size: 1.8rem;
+
+      font-weight: 700;
+
+      margin-bottom: 0.5rem;
+
+      color: white;
+    }
+
+    p {
+      color: #cbd5e1;
+
+      line-height: 1.7;
+
+      margin-bottom: 1rem;
+
+      max-width: 500px;
+    }
+  }
+
+  .team-skills {
+    display: flex;
+
+    gap: 0.5rem;
+
+    flex-wrap: wrap;
+
+    span {
+      background: rgba(255, 255, 255, 0.12);
+
+      backdrop-filter: blur(8px);
+
+      padding: 0.35rem 0.8rem;
+
+      border-radius: 20px;
+
+      font-size: 0.8rem;
+
+      color: white;
+    }
+  }
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 992px) {
+  .team-card {
+    min-height: 140px;
+
+    height: 140px;
+
+    flex: none;
+
+    &:not(.active) {
+      .team-content {
+        opacity: 0;
+
+        transform: translateY(20px);
+      }
+    }
+
+    &.active {
+      min-height: 420px;
+
+      height: 420px;
+
+      flex: none;
+
+      .team-content {
+        opacity: 1;
+
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .team-section {
+    padding: 4rem 0;
+  }
+
+  .team-header {
+    h2 {
+      font-size: 1.8rem;
+    }
+  }
+
+  .team-card {
+    &.active {
+      min-height: 380px;
+
+      height: 380px;
+    }
+  }
+
+  .team-content {
+    padding: 1.25rem !important;
+
+    h3 {
+      font-size: 1.4rem !important;
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
+  }
+}
