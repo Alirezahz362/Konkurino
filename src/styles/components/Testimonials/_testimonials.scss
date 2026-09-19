@@ -1,0 +1,112 @@
+.testimonials-section {
+  background: var(--background-color);
+  color: var(--text-color);
+
+  .section-badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background: rgba(20, 184, 166, 0.15);
+    color: var(--secondary-color);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  .testimonials-swiper {
+    padding-bottom: 3.5rem !important;
+
+    .swiper-pagination-bullet {
+      background: var(--muted-text);
+      opacity: 0.4;
+      &.swiper-pagination-bullet-active {
+        background: var(--secondary-color);
+        opacity: 1;
+        width: 24px;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+      }
+    }
+  }
+}
+.testimonial-card {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 1.75rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.25rem;
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      .user-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--secondary-color);
+      }
+      .user-name {
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin-bottom: 0.2rem;
+        color: var(--text-color);
+      }
+      .user-rank {
+        font-size: 0.8rem;
+        color: var(--secondary-color);
+        font-weight: 600;
+      }
+    }
+    .quote-icon {
+      font-size: 1.5rem;
+      color: var(--border-color);
+      opacity: 0.7;
+    }
+  }
+  .comment-text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--muted-text);
+    margin-bottom: 1.5rem;
+  }
+  .card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border-color);
+    .course-badge {
+      font-size: 0.75rem;
+      background: var(--background-color);
+      color: var(--text-color);
+      padding: 0.3rem 0.75rem;
+      border-radius: 12px;
+    }
+    .stars {
+      display: flex;
+      gap: 3px;
+      font-size: 0.85rem;
+      .star-active {
+        color: var(--accent-color);
+      }
+      .star-inactive {
+        color: var(--border-color);
+      }
+    }
+  }
+}

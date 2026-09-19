@@ -1,0 +1,155 @@
+/* ========================= Main Footer ========================= */
+.main-footer {
+  background: var(--surface-color);
+  color: var(--text-color);
+  border-top: 1px solid var(--border-color);
+  padding-top: 4rem;
+  margin-top: 4rem;
+
+  .brand-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--text-color);
+
+    span {
+      color: var(--secondary-color);
+    }
+  }
+
+  .brand-desc {
+    color: var(--muted-text);
+    font-size: 0.92rem;
+    line-height: 1.8;
+  }
+
+  .footer-heading {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    color: var(--text-color);
+    position: relative;
+
+    &::after {
+      content: "";
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: var(--secondary-color);
+      border-radius: 2px;
+      margin-top: 6px;
+    }
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin-bottom: 0.6rem;
+
+      a {
+        color: var(--muted-text);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.2s ease, padding-right 0.2s ease;
+
+        &:hover {
+          color: var(--secondary-color);
+          padding-right: 4px;
+        }
+      }
+    }
+  }
+
+  /* Newsletter */
+  .footer-newsletter {
+    background: var(--background-color);
+    padding: 1.25rem;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+
+    h5 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    p {
+      font-size: 0.82rem;
+      color: var(--muted-text);
+      margin-bottom: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 6px;
+
+      input {
+        flex: 1;
+        padding: 0.5rem 0.8rem;
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+        background: var(--surface-color);
+        color: var(--text-color);
+        font-size: 0.85rem;
+
+        &:focus {
+          outline: none;
+          border-color: var(--secondary-color);
+        }
+      }
+
+      button {
+        background: var(--secondary-color);
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: opacity 0.2s ease;
+
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+    }
+  }
+
+  /* Socials */
+  .footer-socials {
+    display: flex;
+    gap: 0.8rem;
+
+    a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--background-color);
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: var(--secondary-color);
+        color: white;
+        border-color: var(--secondary-color);
+        transform: translateY(-3px);
+      }
+    }
+  }
+
+  .footer-contact {
+    p {
+      font-size: 0.88rem;
+      color: var(--muted-text);
+      margin-bottom: 0.4rem;
+    }
+  }
+}
