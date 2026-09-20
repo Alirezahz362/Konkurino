@@ -1,6 +1,7 @@
 import { FaBell, FaMoon, FaSun, FaUser, FaUserPlus } from "react-icons/fa";
 import { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
+import { Link } from "react-router-dom";
 const Header = () => {
   const { darkMode, toggleTheme } = useContext(ThemeContext);
 
@@ -17,22 +18,24 @@ const Header = () => {
       "
         >
           <div className="d-flex align-items-center gap-2">
-            <button
+            <Link
+              to="/login"
               className="
-            btn
-            btn-outline-secondary
-            rounded-pill
-            d-flex
-            align-items-center
-            gap-2
-          "
+              btn
+              btn-outline-secondary
+              rounded-pill
+              d-flex
+              align-items-center
+             gap-2
+           "
             >
               <FaUser />
 
               <span className="d-none d-sm-inline">ورود</span>
-            </button>
+            </Link>
 
-            <button
+            <Link
+              to="/register"
               className="
             btn
             btn-brand
@@ -45,7 +48,7 @@ const Header = () => {
               <FaUserPlus />
 
               <span className="d-none d-sm-inline">ثبت نام</span>
-            </button>
+            </Link>
           </div>
 
           {/* لوگو */}

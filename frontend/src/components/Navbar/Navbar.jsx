@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import useScroll from "../../hooks/useScroll";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   
@@ -31,9 +32,9 @@ const Navbar = () => {
           <div className="navbar-content">
             <ul className="navbar-nav navbar-links">
               <li className="nav-item">
-                <a href="#" className="nav-link ">
+                <Link to='/' className="nav-link ">
                   خونه
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <div className="dropdown" ref={courseMenuRef}>

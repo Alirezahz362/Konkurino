@@ -1,18 +1,20 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-import { ThemeProvider } from './context/ThemeContext.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import "./index.css";
+import App from "./App.jsx";
+import { ThemeProvider } from "./context/ThemeContext.jsx";
 
 //bootstrap js
-import "bootstrap/dist/js/bootstrap.js"
-import "bootstrap/dist/js/bootstrap.bundle.js"
+import "bootstrap/dist/js/bootstrap.js";
+import "bootstrap/dist/js/bootstrap.bundle.js";
 
-
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeProvider>
-    <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ThemeProvider>
   </StrictMode>,
-)
+);

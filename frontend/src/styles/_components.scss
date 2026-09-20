@@ -2,6 +2,7 @@
 @use './components/Navbar/navbar';
 @use './components/Navbar/courseSheet';
 @use './components/Navbar/bottomNav';
+@use './components/Auth/auth';
 @use '../layouts/mainLayout';
 @use './components/FeaturedSection/featuredSection';
 @use './components/course/category.scss';
