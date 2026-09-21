@@ -1,15 +1,28 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { FaPhone, FaLock, FaEye, FaEyeSlash, FaSignInAlt, FaGlobe } from 'react-icons/fa';
-import useForm from '../hooks/useForm';
-import { validateLoginForm, validatePhoneLive, validatePasswordLive, hasPersianCharacters } from '../utils/validation';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  FaPhone,
+  FaLock,
+  FaEye,
+  FaEyeSlash,
+  FaSignInAlt,
+  FaGlobe,
+} from "react-icons/fa";
+import useForm from "../hooks/useForm";
+import { loginUser } from "../services/authService";
+import {
+  validateLoginForm,
+  validatePhoneLive,
+  validatePasswordLive,
+  hasPersianCharacters,
+} from "../utils/validation";
 
 const Login = () => {
   const navigate = useNavigate();
 
   const { values, handleChange } = useForm({
-    phone: '',
-    password: '',
+    phone: "",
+    password: "",
     rememberMe: false,
   });
 
@@ -17,23 +30,22 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
-
   const handleInputChange = (e) => {
     handleChange(e);
     const { name, value } = e.target;
 
-    if (name === 'phone') {
+    if (name === "phone") {
       const liveErr = validatePhoneLive(value);
       setErrors((prev) => ({ ...prev, phone: liveErr }));
     }
 
-    if (name === 'password') {
+    if (name === "password") {
       const liveErr = validatePasswordLive(value);
       setErrors((prev) => ({ ...prev, password: liveErr }));
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const { isValid, errors: validationErrors } = validateLoginForm(values);
@@ -46,30 +58,43 @@ const Login = () => {
     setErrors({});
     setLoading(true);
 
-    setTimeout(() => {
-      setLoading(false);
-      navigate('/');
-    }, 1200);
+    try{
+      const responseMessage = await loginUser({ 
+         phone: values.phone, 
+          password: values.password,
+         });
+         navigate("/");
+    }catch(err){
+      setServerError(err.message);
+    }finally{
+      setLoading(false)
+    }
+
   };
 
   return (
     <>
       <div className="auth-header text-center mb-4">
-        <h2 className="auth-title fw-bold">ورود به کنکورینو <span>.</span></h2>
-        <p className="auth-subtitle text-muted">برای دسترسی به دوره‌ها و پنل کاربری وارد شوید</p>
+        <h2 className="auth-title fw-bold">
+          ورود به کنکورینو <span>.</span>
+        </h2>
+        <p className="auth-subtitle text-muted">
+          برای دسترسی به دوره‌ها و پنل کاربری وارد شوید
+        </p>
       </div>
 
       <form onSubmit={handleSubmit} className="auth-form" noValidate>
-
         <div className="form-group mb-3">
-          <label htmlFor="phone" className="form-label">شماره تلفن</label>
+          <label htmlFor="phone" className="form-label">
+            شماره تلفن
+          </label>
           <div className="input-icon-wrapper">
             <FaPhone className="input-icon" />
             <input
               type="tel"
               id="phone"
               name="phone"
-              className={`form-control ${errors.phone ? 'is-invalid' : ''}`}
+              className={`form-control ${errors.phone ? "is-invalid" : ""}`}
               placeholder="همانند 09123456789"
               value={values.phone}
               onChange={handleInputChange}
@@ -77,14 +102,17 @@ const Login = () => {
             />
           </div>
           {errors.phone && (
-            <span className="text-danger text-xs mt-1 d-block fw-medium">{errors.phone}</span>
+            <span className="text-danger text-xs mt-1 d-block fw-medium">
+              {errors.phone}
+            </span>
           )}
         </div>
 
-
         <div className="form-group mb-3">
           <div className="d-flex justify-content-between align-items-center mb-1">
-            <label htmlFor="password" className="form-label mb-0">رمز عبور</label>
+            <label htmlFor="password" className="form-label mb-0">
+              رمز عبور
+            </label>
             <Link to="/forgot-password" className="forgot-link">
               رمز عبور را فراموش کرده‌اید؟
             </Link>
@@ -92,10 +120,10 @@ const Login = () => {
           <div className="input-icon-wrapper">
             <FaLock className="input-icon" />
             <input
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               id="password"
               name="password"
-              className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+              className={`form-control ${errors.password ? "is-invalid" : ""}`}
               placeholder="رمز عبور خود را وارد کنید"
               value={values.password}
               onChange={handleInputChange}
@@ -113,16 +141,18 @@ const Login = () => {
 
           {hasPersianCharacters(values.password) && (
             <div className="text-warning text-xs mt-1 d-flex align-items-center gap-1 fw-bold">
-              <FaGlobe /> زبان کیبورد شما فارسی است. کیبورد را به انگلیسی تغییر دهید.
+              <FaGlobe /> زبان کیبورد شما فارسی است. کیبورد را به انگلیسی تغییر
+              دهید.
             </div>
           )}
 
           {errors.password && !hasPersianCharacters(values.password) && (
-            <span className="text-danger text-xs mt-1 d-block fw-medium">{errors.password}</span>
+            <span className="text-danger text-xs mt-1 d-block fw-medium">
+              {errors.password}
+            </span>
           )}
         </div>
 
-      
         <div className="form-check mb-4">
           <input
             type="checkbox"
@@ -137,7 +167,6 @@ const Login = () => {
           </label>
         </div>
 
-        
         <button
           type="submit"
           className="btn btn-primary w-100 py-2 d-flex align-items-center justify-content-center gap-2"
@@ -153,10 +182,9 @@ const Login = () => {
         </button>
       </form>
 
-    
       <div className="auth-footer text-center mt-4 pt-3 border-top border-secondary-subtle">
         <p className="mb-0 text-muted">
-          حساب کاربری ندارید؟{' '}
+          حساب کاربری ندارید؟{" "}
           <Link to="/register" className="register-link fw-bold">
             ثبت‌نام کنید
           </Link>
