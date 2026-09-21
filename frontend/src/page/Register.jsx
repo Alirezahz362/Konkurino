@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaUser, FaPhone, FaLock, FaEye, FaEyeSlash, FaUserPlus } from 'react-icons/fa';
+import { FaUser, FaPhone, FaLock, FaEye, FaEyeSlash, FaUserPlus, FaGlobe } from 'react-icons/fa';
 import useForm from '../hooks/useForm';
+import {
+  validateRegisterForm,
+  validateFullName,
+  validatePhoneLive,
+  validatePasswordLive,
+  validateConfirmPassword,
+  hasPersianCharacters
+} from '../utils/validation';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -15,29 +23,55 @@ const Register = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [errors, setErrors] = useState({});
 
+
+  const handleInputChange = (e) => {
+    handleChange(e);
+    const { name, value } = e.target;
+
+    if (name === 'fullName') {
+      const err = validateFullName(value);
+      setErrors((prev) => ({ ...prev, fullName: err }));
+    }
+
+    if (name === 'phone') {
+      const err = validatePhoneLive(value);
+      setErrors((prev) => ({ ...prev, phone: err }));
+    }
+
+    if (name === 'password') {
+      const err = validatePasswordLive(value);
+      setErrors((prev) => ({ ...prev, password: err }));
+      if (values.confirmPassword) {
+        const confirmErr = validateConfirmPassword(value, values.confirmPassword);
+        setErrors((prev) => ({ ...prev, confirmPassword: confirmErr }));
+      }
+    }
+
+    if (name === 'confirmPassword') {
+      const err = validateConfirmPassword(values.password, value);
+      setErrors((prev) => ({ ...prev, confirmPassword: err }));
+    }
+
+    if (name === 'acceptTerms') {
+      setErrors((prev) => ({ ...prev, acceptTerms: e.target.checked ? '' : 'لطفاً قوانین را بپذیرید.' }));
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError('');
 
-    if (!values.fullName || !values.phone || !values.password || !values.confirmPassword) {
-      setError('لطفاً تمام فیلدهای ضروری را پر کنید.');
+    const { isValid, errors: validationErrors } = validateRegisterForm(values);
+
+    if (!isValid) {
+      setErrors(validationErrors);
       return;
     }
 
-    if (values.password !== values.confirmPassword) {
-      setError('رمز عبور و تکرار آن با هم مطابقت ندارند.');
-      return;
-    }
-
-    if (!values.acceptTerms) {
-      setError('لطفاً قوانین و مقررات کنکورینو را بپذیرید.');
-      return;
-    }
-
+    setErrors({});
     setLoading(true);
 
     setTimeout(() => {
@@ -50,17 +84,11 @@ const Register = () => {
     <>
       <div className="auth-header text-center mb-4">
         <h2 className="auth-title fw-bold">ثبت‌نام در کنکورینو <span>.</span></h2>
-        <p className="auth-subtitle text-muted">حساب کاربری جدید خود را بسازید</p>
+        <p className="auth-subtitle text-muted">برای استفاده از خدمات سایت حساب کاربری جدید بسازید</p>
       </div>
 
-      {error && (
-        <div className="alert alert-danger py-2 text-center text-sm mb-3" role="alert">
-          {error}
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit} className="auth-form">
-  
+      <form onSubmit={handleSubmit} className="auth-form" noValidate>
+        {/* فیلد نام و نام خانوادگی */}
         <div className="form-group mb-3">
           <label htmlFor="fullName" className="form-label">نام و نام خانوادگی</label>
           <div className="input-icon-wrapper">
@@ -69,30 +97,36 @@ const Register = () => {
               type="text"
               id="fullName"
               name="fullName"
-              className="form-control"
-              placeholder='نام و نام خانوادگی خود را وارد کنید'
+              className={`form-control ${errors.fullName ? 'is-invalid' : ''}`}
+              placeholder=" نام و نام خانوادگی خود را وارد کنید "
               value={values.fullName}
-              onChange={handleChange}
+              onChange={handleInputChange}
             />
           </div>
+          {errors.fullName && (
+            <span className="text-danger text-xs mt-1 d-block fw-medium">{errors.fullName}</span>
+          )}
         </div>
 
-        {/* فیلد شماره موبایل */}
+      
         <div className="form-group mb-3">
-          <label htmlFor="phone" className="form-label">شماره موبایل</label>
+          <label htmlFor="phone" className="form-label">شماره تلفن</label>
           <div className="input-icon-wrapper">
             <FaPhone className="input-icon" />
             <input
               type="tel"
               id="phone"
               name="phone"
-              className="form-control"
-              placeholder="همانند الگو   09123456789"
+              className={`form-control ${errors.phone ? 'is-invalid' : ''}`}
+              placeholder="همانند  الگوی 09123456789"
               value={values.phone}
-              onChange={handleChange}
+              onChange={handleInputChange}
               dir="ltr"
             />
           </div>
+          {errors.phone && (
+            <span className="text-danger text-xs mt-1 d-block fw-medium">{errors.phone}</span>
+          )}
         </div>
 
         {/* فیلد رمز عبور */}
@@ -104,10 +138,10 @@ const Register = () => {
               type={showPassword ? 'text' : 'password'}
               id="password"
               name="password"
-              className="form-control"
-              placeholder="حداقل 8 کاراکتر"
+              className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+              placeholder="شامل حرف بزرگ، کوچک و عدد (انگلیسی)"
               value={values.password}
-              onChange={handleChange}
+              onChange={handleInputChange}
               dir="ltr"
             />
             <button
@@ -119,6 +153,16 @@ const Register = () => {
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
+
+          {hasPersianCharacters(values.password) && (
+            <div className="text-warning text-xs mt-1 d-flex align-items-center gap-1 fw-bold">
+              <FaGlobe /> زبان کیبورد شما فارسی است. کیبورد را به انگلیسی تغییر دهید.
+            </div>
+          )}
+
+          {errors.password && !hasPersianCharacters(values.password) && (
+            <span className="text-danger text-xs mt-1 d-block fw-medium">{errors.password}</span>
+          )}
         </div>
 
         {/* فیلد تکرار رمز عبور */}
@@ -127,31 +171,45 @@ const Register = () => {
           <div className="input-icon-wrapper">
             <FaLock className="input-icon" />
             <input
-              type={showPassword ? 'text' : 'password'}
+              type={showConfirmPassword ? 'text' : 'password'}
               id="confirmPassword"
               name="confirmPassword"
-              className="form-control"
-              placeholder="تکرار رمز عبور"
+              className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''}`}
+              placeholder="رمز عبور را مجدداً وارد کنید"
               value={values.confirmPassword}
-              onChange={handleChange}
+              onChange={handleInputChange}
               dir="ltr"
             />
+            <button
+              type="button"
+              className="password-toggle-btn"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              aria-label="تغییر وضعیت نمایش رمز"
+            >
+              {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
           </div>
+          {errors.confirmPassword && (
+            <span className="text-danger text-xs mt-1 d-block fw-medium">{errors.confirmPassword}</span>
+          )}
         </div>
 
-        {/* پذیرش قوانین */}
+        {/* قوانین و مقررات */}
         <div className="form-check mb-4">
           <input
             type="checkbox"
-            className="form-check-input"
+            className={`form-check-input ${errors.acceptTerms ? 'is-invalid' : ''}`}
             id="acceptTerms"
             name="acceptTerms"
             checked={values.acceptTerms}
-            onChange={handleChange}
+            onChange={handleInputChange}
           />
           <label className="form-check-label" htmlFor="acceptTerms">
-            <Link to="/terms" className="register-link me-1">قوانین و مقررات</Link> کنکورینو را می‌پذیرم.
+            با <a href="#" className="terms-link">قوانین و مقررات</a> کنکورینو موافقم.
           </label>
+          {errors.acceptTerms && (
+            <span className="text-danger text-xs mt-1 d-block fw-medium">{errors.acceptTerms}</span>
+          )}
         </div>
 
         {/* دکمه ارسال */}
@@ -164,7 +222,7 @@ const Register = () => {
             <span>در حال ثبت‌نام...</span>
           ) : (
             <>
-              <FaUserPlus /> ایجاد حساب کاربری
+              <FaUserPlus /> ثبت‌نام
             </>
           )}
         </button>
@@ -174,7 +232,7 @@ const Register = () => {
       <div className="auth-footer text-center mt-4 pt-3 border-top border-secondary-subtle">
         <p className="mb-0 text-muted">
           قبلاً ثبت‌نام کرده‌اید؟{' '}
-          <Link to="/login" className="register-link fw-bold">
+          <Link to="/login" className="login-link fw-bold">
             وارد شوید
           </Link>
         </p>
