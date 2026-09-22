@@ -58,18 +58,17 @@ const Login = () => {
     setErrors({});
     setLoading(true);
 
-    try{
-      const responseMessage = await loginUser({ 
-         phone: values.phone, 
-          password: values.password,
-         });
-         navigate("/");
-    }catch(err){
-      setServerError(err.message);
-    }finally{
-      setLoading(false)
+    try {
+      const responseMessage = await loginUser({
+        phone: values.phone,
+        password: values.password,
+      });
+      navigate("/");
+    } catch (err) {
+      setErrors(err.message);
+    } finally {
+      setLoading(false);
     }
-
   };
 
   return (

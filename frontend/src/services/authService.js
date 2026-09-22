@@ -1,4 +1,18 @@
-const API_URL = "http://localhost:5000";
+const API_URL = "http://localhost:5000/api/auth";
+
+export const registerUser = async (userData) => {
+  const res = await fetch(`${API_URL}/register`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(userData)
+  });
+  const data = await res.json()
+
+  if(!res.ok){
+    throw new Error(data.message ||'خطایی درثبت نام رخ داده است ')
+  }
+  return data
+};
 
 export const loginUser = async (credentials) => {
   const res = await fetch(`${API_URL}/login`, {
@@ -6,9 +20,9 @@ export const loginUser = async (credentials) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentials),
   });
-  const data =await res.json()
+  const data = await res.json();
   if (!res.ok) {
-    throw new Error(data.message||" خطا در ارتباط با  سرور");
+    throw new Error(data.message || " خطا در ارتباط با  سرور");
   }
   return data;
 };
