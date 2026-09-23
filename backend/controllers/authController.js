@@ -1,5 +1,5 @@
 const User = require("../models/User");
-
+const bcrypt = require("bcryptjs");
 const registerUser = async (req, res) => {
   try {
     const { fullName, phone, password } = req.body;
@@ -15,10 +15,15 @@ const registerUser = async (req, res) => {
         .status(400)
         .json({ message: "این شماره تلفن قبلا ثبت نام کرده است" });
     }
+
+    //Hashing passwords before storing them in the database
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
     const user = await User.create({
       fullName,
       phone,
-      password,
+      password: hashedPassword,
     });
     res.status(201).json({
       message: "ثبت نام با موفقیت انجام شد",
@@ -45,12 +50,14 @@ const loginUser = async (req, res) => {
         .json({ message: " لطفا شماره تفن و رمز عبور را وارد کنید " });
     }
     const user = await User.findOne({ phone });
-    if (!user || user.password !== password) {
-      return res
-        .statuse(401)
-        .json({
-          message: " کاربری با این  مشخصات یافت نشد یا رمز عبور اشتباه می باشد",
-        });
+    const isPasswordCorrect = user
+      ? await bcrypt.compare(password, user.password)
+      : false;
+
+    if (!user || !isPasswordCorrect) {
+      return res.statuse(401).json({
+        message: " کاربری با این  مشخصات یافت نشد یا رمز عبور اشتباه می باشد",
+      });
     }
     res.status(200).json({
       message: " ورود با موفقیت انجام شد",
