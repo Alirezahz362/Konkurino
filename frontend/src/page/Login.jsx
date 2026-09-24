@@ -9,6 +9,7 @@ import {
   FaGlobe,
 } from "react-icons/fa";
 import useForm from "../hooks/useForm";
+import { useAuth } from "../hooks/useAuth";
 import { loginUser } from "../services/authService";
 import {
   validateLoginForm,
@@ -19,6 +20,7 @@ import {
 
 const Login = () => {
   const navigate = useNavigate();
+  const { loginContext } = useAuth();
 
   const { values, handleChange } = useForm({
     phone: "",
@@ -63,6 +65,13 @@ const Login = () => {
         phone: values.phone,
         password: values.password,
       });
+
+      const userData =
+        typeof responseMessage === "string"
+          ? JSON.parse(responseMessage)
+          : responseMessage;
+      loginContext(userData.user || userData);
+
       navigate("/");
     } catch (err) {
       setErrors(err.message);
@@ -83,6 +92,7 @@ const Login = () => {
       </div>
 
       <form onSubmit={handleSubmit} className="auth-form" noValidate>
+        {/* فیلد شماره تلفن */}
         <div className="form-group mb-3">
           <label htmlFor="phone" className="form-label">
             شماره تلفن
@@ -107,6 +117,7 @@ const Login = () => {
           )}
         </div>
 
+        {/* فیلد رمز عبور */}
         <div className="form-group mb-3">
           <div className="d-flex justify-content-between align-items-center mb-1">
             <label htmlFor="password" className="form-label mb-0">
@@ -152,6 +163,7 @@ const Login = () => {
           )}
         </div>
 
+        {/* مرا به خاطر بسپار */}
         <div className="form-check mb-4">
           <input
             type="checkbox"
@@ -166,6 +178,7 @@ const Login = () => {
           </label>
         </div>
 
+        {/* دکمه ارسال */}
         <button
           type="submit"
           className="btn btn-primary w-100 py-2 d-flex align-items-center justify-content-center gap-2"
@@ -181,6 +194,7 @@ const Login = () => {
         </button>
       </form>
 
+      {/* لینک ثبت‌نام */}
       <div className="auth-footer text-center mt-4 pt-3 border-top border-secondary-subtle">
         <p className="mb-0 text-muted">
           حساب کاربری ندارید؟{" "}
