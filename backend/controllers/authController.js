@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const prisma = require("../prisma");
 const bcrypt = require("bcryptjs");
 const registerUser = async (req, res) => {
   try {
@@ -9,7 +9,9 @@ const registerUser = async (req, res) => {
         message: "  نام و نام  خانوداگی ، شماره تلفن ورمز عبور را وارد کنید ",
       });
     }
-    const userExists = await User.findOne({ phone });
+    const userExists = await prisma.user.findUnique({
+      where: { phone },
+    });
     if (userExists) {
       return res
         .status(400)
@@ -20,15 +22,17 @@ const registerUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const user = await User.create({
-      fullName,
-      phone,
-      password: hashedPassword,
+    const user = await prisma.user.create({
+      data: {
+        fullName,
+        phone,
+        password: hashedPassword,
+      },
     });
     res.status(201).json({
       message: "ثبت نام با موفقیت انجام شد",
       user: {
-        id: user._id,
+        id: user.id,
         fullName: user.fullName,
         phone: user.phone,
         role: user.role,
@@ -46,23 +50,25 @@ const loginUser = async (req, res) => {
     const { phone, password } = req.body;
     if (!phone || !password) {
       return res
-        .statuse(400)
+        .status(400)
         .json({ message: " لطفا شماره تفن و رمز عبور را وارد کنید " });
     }
-    const user = await User.findOne({ phone });
+    const user = await prisma.user.findUnique({
+      where: { phone },
+    });
     const isPasswordCorrect = user
       ? await bcrypt.compare(password, user.password)
       : false;
 
     if (!user || !isPasswordCorrect) {
-      return res.statuse(401).json({
+      return res.status(401).json({
         message: " کاربری با این  مشخصات یافت نشد یا رمز عبور اشتباه می باشد",
       });
     }
     res.status(200).json({
       message: " ورود با موفقیت انجام شد",
       user: {
-        id: user._id,
+        id: user.id,
         fullName: user.fullName,
         phone: user.phone,
         role: user.role,

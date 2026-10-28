@@ -34,3 +34,8 @@ pnpm-debug.log*
 .DS_Store?
 ._*
 Thumbs.db
+.claude
+.cursor
+.agents
+.devin
+prisma.config.ts

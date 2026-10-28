@@ -1,0 +1,73 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id       Int      @id @default(autoincrement())
+    fullName String?
+    phone    String   @unique
+    password String
+    role     String   @default("USER")
+    createAt DateTime @default(now())
+    updateAt DateTime @updatedAt
+
+    enrollments Enrollment[]
+}
+
+model Major {
+    id      Int       @id @default(autoincrement())
+    title   String
+    slug    String    @unique
+    icon    String?
+    subject Subject[]
+    course  Course[]
+}
+
+model Subject {
+    id      Int      @id @default(autoincrement())
+    title   String
+    icon    String?
+    majorId Int
+    major   Major    @relation(fields: [majorId], references: [id], onDelete: Cascade)
+    course  Course[]
+}
+
+model Course {
+    id         Int     @id @default(autoincrement())
+    title      String
+    image      String?
+    content    String?
+    price      String?
+    isFeatured Boolean @default(false)
+    badge      String?
+    buttonText String?
+    link       String?
+    videoUrl   String?
+    pdfUrl     String?
+    majorId    Int
+    major      Major   @relation(fields: [majorId], references: [id])
+    subjectId  Int
+    subject    Subject @relation(fields: [subjectId], references: [id])
+
+    createAt DateTime @default(now())
+
+    enrollments Enrollment[]
+}
+
+model Enrollment {
+    id       Int    @id @default(autoincrement())
+    userId   Int
+    user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    courseId Int
+    course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+    status   String   @default("SUCCESS")
+    createAt DateTime @default(now())
+
+    @@unique([userId, courseId])
+}

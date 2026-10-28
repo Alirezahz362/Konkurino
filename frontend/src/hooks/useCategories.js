@@ -1,26 +1,29 @@
 import { useEffect, useState } from "react";
-import getCategories from "../services/categoryService";
+import { courseService } from "../services/courseService";
 
 const useCategories = () => {
   const [categories, setCategories] = useState([]);
+  const [loading, setloading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const loadCategories = async () => {
+    const fetchCategories = async () => {
       try {
-        const data = await getCategories();
-
+        setloading(true);
+        const data = await courseService.getCategories();
         setCategories(data);
-      } catch (err) {
-        setError(err.message);
+      } catch (error) {
+        setError(error.message || " خطادر دریافت اطلاعات رشته ها");
+      }finally{
+        setloading(false)
       }
     };
-
-    loadCategories();
+    fetchCategories();
   }, []);
 
   return {
     categories,
+    loading,
     error,
   };
 };
