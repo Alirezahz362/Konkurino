@@ -6,21 +6,13 @@ import {
   FaEye,
   FaEyeSlash,
   FaSignInAlt,
-  FaGlobe,
 } from "react-icons/fa";
 import useForm from "../hooks/useForm";
-import { useAuth } from "../hooks/useAuth";
 import { loginUser } from "../services/authService";
-import {
-  validateLoginForm,
-  validatePhoneLive,
-  validatePasswordLive,
-  hasPersianCharacters,
-} from "../utils/validation";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { loginContext } = useAuth();
+
 
   const { values, handleChange } = useForm({
     phone: "",
@@ -30,53 +22,35 @@ const Login = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [error, setError] = useState("");
 
-  const handleInputChange = (e) => {
-    handleChange(e);
-    const { name, value } = e.target;
-
-    if (name === "phone") {
-      const liveErr = validatePhoneLive(value);
-      setErrors((prev) => ({ ...prev, phone: liveErr }));
-    }
-
-    if (name === "password") {
-      const liveErr = validatePasswordLive(value);
-      setErrors((prev) => ({ ...prev, password: liveErr }));
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
 
-    const { isValid, errors: validationErrors } = validateLoginForm(values);
-
-    if (!isValid) {
-      setErrors(validationErrors);
+    if (!values.phone || !values.password) {
+      setError("لطفاً شماره تلفن و رمز عبور خود را وارد کنید.");
       return;
     }
 
-    setErrors({});
     setLoading(true);
 
     try {
-      const responseMessage = await loginUser({
+      const data = await loginUser({
         phone: values.phone,
         password: values.password,
       });
 
-      const userData =
-        typeof responseMessage === "string"
-          ? JSON.parse(responseMessage)
-          : responseMessage;
-      loginContext(userData.user || userData);
+      if (data.user) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+      }
 
+      setLoading(false);
       navigate("/");
     } catch (err) {
-      setErrors(err.message);
-    } finally {
       setLoading(false);
+      setError(err.message || "شماره تلفن یا رمز عبور اشتباه است.");
     }
   };
 
@@ -91,8 +65,17 @@ const Login = () => {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="auth-form" noValidate>
-        {/* فیلد شماره تلفن */}
+      {error && (
+        <div
+          className="alert alert-danger py-2 text-center text-sm mb-3"
+          role="alert"
+        >
+          {error}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="auth-form">
+    
         <div className="form-group mb-3">
           <label htmlFor="phone" className="form-label">
             شماره تلفن
@@ -103,21 +86,15 @@ const Login = () => {
               type="tel"
               id="phone"
               name="phone"
-              className={`form-control ${errors.phone ? "is-invalid" : ""}`}
-              placeholder="همانند 09123456789"
+              className="form-control"
+              placeholder="همانند الگوی  ۰۹۱۲۳۴۵۶۷۸۹"
               value={values.phone}
-              onChange={handleInputChange}
+              onChange={handleChange}
               dir="ltr"
             />
           </div>
-          {errors.phone && (
-            <span className="text-danger text-xs mt-1 d-block fw-medium">
-              {errors.phone}
-            </span>
-          )}
         </div>
 
-        {/* فیلد رمز عبور */}
         <div className="form-group mb-3">
           <div className="d-flex justify-content-between align-items-center mb-1">
             <label htmlFor="password" className="form-label mb-0">
@@ -133,10 +110,10 @@ const Login = () => {
               type={showPassword ? "text" : "password"}
               id="password"
               name="password"
-              className={`form-control ${errors.password ? "is-invalid" : ""}`}
+              className="form-control"
               placeholder="رمز عبور خود را وارد کنید"
               value={values.password}
-              onChange={handleInputChange}
+              onChange={handleChange}
               dir="ltr"
             />
             <button
@@ -148,19 +125,6 @@ const Login = () => {
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
-
-          {hasPersianCharacters(values.password) && (
-            <div className="text-warning text-xs mt-1 d-flex align-items-center gap-1 fw-bold">
-              <FaGlobe /> زبان کیبورد شما فارسی است. کیبورد را به انگلیسی تغییر
-              دهید.
-            </div>
-          )}
-
-          {errors.password && !hasPersianCharacters(values.password) && (
-            <span className="text-danger text-xs mt-1 d-block fw-medium">
-              {errors.password}
-            </span>
-          )}
         </div>
 
         {/* مرا به خاطر بسپار */}
@@ -178,7 +142,7 @@ const Login = () => {
           </label>
         </div>
 
-        {/* دکمه ارسال */}
+   
         <button
           type="submit"
           className="btn btn-primary w-100 py-2 d-flex align-items-center justify-content-center gap-2"
@@ -194,7 +158,7 @@ const Login = () => {
         </button>
       </form>
 
-      {/* لینک ثبت‌نام */}
+
       <div className="auth-footer text-center mt-4 pt-3 border-top border-secondary-subtle">
         <p className="mb-0 text-muted">
           حساب کاربری ندارید؟{" "}

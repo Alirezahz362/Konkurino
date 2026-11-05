@@ -1,28 +1,37 @@
 const API_URL = "http://localhost:5000/api/auth";
 
 export const registerUser = async (userData) => {
-  const res = await fetch(`${API_URL}/register`, {
+  const response = await fetch(`${API_URL}/register`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(userData)
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
   });
-  const data = await res.json()
 
-  if(!res.ok){
-    throw new Error(data.message ||'خطایی درثبت نام رخ داده است ')
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "خطایی در ثبت‌نام کاربر رخ داده است.");
   }
-  return data
+
+  return data;
 };
 
 export const loginUser = async (credentials) => {
-  const res = await fetch(`${API_URL}/login`, {
+  const response = await fetch(`${API_URL}/login`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(credentials),
   });
-  const data = await res.json();
-  if (!res.ok) {
-    throw new Error(data.message || " خطا در ارتباط با  سرور");
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "شماره موبایل یا رمز عبور اشتباه است.");
   }
+
   return data;
 };

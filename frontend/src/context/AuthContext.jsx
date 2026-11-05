@@ -1,40 +1,47 @@
-import { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from 'react';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
-    try {
-      const storedUser = localStorage.getItem("user");
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      try {
+        setUser(JSON.parse(savedUser));
+      } catch (err) {
+        console.error('خطا در خواندن داده کاربر از localStorage:', err);
+        localStorage.removeItem('user');
       }
-    } catch (error) {
-      console.error("localStorage:خطا در خواندن داده  های کاربر ", error);
-      localStorage.removeItem("user");
-    } finally {
-      setLoading(false);
     }
   }, []);
 
   const loginContext = (userData) => {
     setUser(userData);
-    localStorage.setItem("user", JSON.stringify(userData));
+    localStorage.setItem('user', JSON.stringify(userData));
   };
+
 
   const logoutContext = () => {
     setUser(null);
-    localStorage.removeItem("user");
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
   };
 
   return (
-    <AuthContext.Provider
-      value={{ user, loginContext, logoutContext, loading }}
-    >
-      {!loading && children}
+    <AuthContext.Provider value={{ user, setUser, loginContext, logoutContext }}>
+      {children}
     </AuthContext.Provider>
   );
+};
+
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth باید داخل AuthProvider استفاده شود.');
+  }
+  return context;
 };

@@ -1,25 +1,29 @@
 import { useState, useEffect } from "react";
-import getCourses from "../services/courseService";
+import { getCourses } from "../services/courseService";
 
-const useCourses = () => {
+export const useCourses = () => {
   const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const loadCourses = async () => {
+    const fetchCoursesData = async () => {
       try {
+        setLoading(true);
         const data = await getCourses();
         setCourses(data);
+        setError(null);
       } catch (err) {
-        setError(err.message);
+        setError(err.message || "خطایی در دریافت اطلاعات دوره‌ها رخ داد.");
+      } finally {
+        setLoading(false);
       }
     };
-    loadCourses();
+
+    fetchCoursesData();
   }, []);
 
-  return {
-    courses,
-    error,
-  };
+  return { courses, loading, error };
 };
+
 export default useCourses;
