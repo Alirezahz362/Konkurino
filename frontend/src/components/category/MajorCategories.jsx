@@ -1,55 +1,74 @@
-import { useState,useRef } from "react";
-
+import React, { useState, useRef } from "react";
+import useCategories from "../../hooks/useCategories";
+import useScrollAnimation from "../../hooks/useScrollAnimation";
 import CategoryCard from "./CategoryCard";
 import SubjectCard from "./SubjectCard";
 
-import useCategories from "../../hooks/useCategories";
-import useScrollAnimation from "../../hooks/useScrollAnimation";
-import useSubjects from "../../hooks/useSubjects";
-
 const MajorCategories = () => {
-  const { categories, error } = useCategories();
+  const { categories =[], loading, error } = useCategories() ||{};
+  
   const [selectedMajor, setSelectedMajor] = useState(null);
-  const { subjects } = useSubjects(selectedMajor);
+  const wrapperRef = useRef(null);
+
+  useScrollAnimation(wrapperRef, [categories, selectedMajor]);
 
   const handleMajorClick = (category) => {
-    setSelectedMajor(category.slug);
+    setSelectedMajor(category.slug || category.id);
   };
- const wrapperRef = useRef(null);
-
-useScrollAnimation(wrapperRef, [categories, selectedMajor]);
 
   const handleBack = () => {
     setSelectedMajor(null);
   };
 
   if (error) {
-    return <p>{error}</p>;
+    return <div className="alert alert-warning text-center my-4">{error}</div>;
   }
 
-  if (categories.length === 0) {
-    return <p>در حال بارگیری...</p>;
+  if (loading) {
+    return (
+      <div className="text-center py-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">درحال بارگیری...</span>
+        </div>
+      </div>
+    );
   }
+  const currentCategory = categories?.find(
+    (cat) => (cat.slug || cat.id) === selectedMajor,
+  );
+  const displaySubject =
+    currentCategory?.subjects || currentCategory?.courses || [];
 
   return (
-    <section className="categories-section">
-      {selectedMajor && (
-        <button className="back-button" onClick={handleBack}>
-          ← برگشت به رشته‌ها
-        </button>
-      )}
-      <div className="categories-wrapper" ref={wrapperRef}>
-        {selectedMajor
-          ? subjects.map((subject) => (
-              <SubjectCard key={subject.id} subject={subject} />
-            ))
-          : categories.map((category) => (
-              <CategoryCard
-                key={category.id}
-                category={category}
-                onClick={handleMajorClick}
-              />
-            ))}
+    <section className="categories-section py-5">
+      <div className="container">
+        {selectedMajor && (
+          <button
+            className=" btn btn-outline-secondary btn-sm mb-4 back-button"
+            onClick={handleBack}
+          >
+            ← برگشت به رشته‌ها
+          </button>
+        )}
+        <div className="categories-wrapper" ref={wrapperRef}>
+          {selectedMajor
+            ? displaySubject.map((subject) => (
+                <SubjectCard
+                  key={subject.id || subject._id}
+                  subject={subject}
+                  onClick={(sub)=>{
+                    console.log('درس انتخاب شده',sub)
+                  }}
+                />
+              ))
+            : categories.map((category) => (
+                <CategoryCard
+                  key={category.id || category._id}
+                  category={category}
+                  onClick={() => handleMajorClick(category)}
+                />
+              ))}
+        </div>
       </div>
     </section>
   );

@@ -1,31 +1,26 @@
-import { useEffect, useState } from "react";
-import { courseService } from "../services/courseService";
+import { useState, useEffect } from "react";
+import { getCategories } from "../services/courseService";
 
-const useCategories = () => {
+export const useCategories = () => {
   const [categories, setCategories] = useState([]);
-  const [loading, setloading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        setloading(true);
-        const data = await courseService.getCategories();
+        setLoading(true);
+        setError(null)
+        const data = await getCategories();
         setCategories(data);
       } catch (error) {
-        setError(error.message || " خطادر دریافت اطلاعات رشته ها");
-      }finally{
-        setloading(false)
+        setError(error.message || " خطا در دریافت لیست دسته بندی ها ");
+      } finally {
+        setLoading(false);
       }
     };
     fetchCategories();
   }, []);
-
-  return {
-    categories,
-    loading,
-    error,
-  };
+  return { categories, loading, error };
 };
-
 export default useCategories;

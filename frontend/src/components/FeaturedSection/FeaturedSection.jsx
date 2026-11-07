@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import useFeaturedAnimation from "../../hooks/useFeaturedAnimation";
-
-import useFeatured from "../../hooks/useFeatured";
 import useSlider from "../../hooks/useSlider";
+import useCourses from "../../hooks/useCourses";
 
 const FeaturedSection = () => {
-  const { featured, error } = useFeatured();
+  const { courses, loading, error } = useCourses();
+  const featured =
+    courses?.filter((item) => item.isFeatured || item.featured) ||
+    courses ||
+    [];
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -28,7 +31,7 @@ const FeaturedSection = () => {
     return <p>{error}</p>;
   }
 
-  if (!currentSlide) {
+  if (loading || !currentSlide) {
     return <p>در حال بارگیری...</p>;
   }
 
@@ -36,20 +39,26 @@ const FeaturedSection = () => {
     <section className="featured-section">
       <div className="featured-content">
         <span className="featured-badge" ref={(el) => addTextRef(el, 0)}>
-          {currentSlide.badge}
+          {currentSlide.badge || currentSlide.category?.title || "ویژه کنکور"}
         </span>
 
         <h2 ref={(el) => addTextRef(el, 1)}>{currentSlide.title}</h2>
 
-        <p ref={(el) => addTextRef(el, 2)}>{currentSlide.description}</p>
+        <p ref={(el) => addTextRef(el, 2)}>
+          {currentSlide.description ||
+            "آموزش جامع و مفهومی به همراه تست سال های اخیر"}
+        </p>
 
         <button className="featured-btn" ref={(el) => addTextRef(el, 3)}>
-          {currentSlide.buttonText}
+          {currentSlide.buttonText || "مشاهده دوره"}
         </button>
       </div>
 
       <div className="featured-image" ref={imageRef}>
-        <img src={currentSlide.image} alt={currentSlide.title} />
+        <img
+          src={currentSlide.image || "/images/course-placeholder.jpg"}
+          alt={currentSlide.title || "دوره ویژه"}
+        />
       </div>
     </section>
   );

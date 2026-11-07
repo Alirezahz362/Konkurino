@@ -1,39 +1,28 @@
-const API_BASE_URL = "http://localhost:5000/api";
+import api from "./api";
 
-export const getCourses = async () => {
-  const response = await fetch(`${API_BASE_URL}/courses`);
-  if (!response.ok) {
-    throw new Error("خطا در دریافت لیست دوره‌ها از سرور");
-  }
-  return await response.json();
+export const getCourses = async (qureryParams = "") => {
+  const endpoint = qureryParams ? `/courses?${qureryParams}` : "/courses";
+  return await api.get(endpoint);
 };
-
 export const getCourseById = async (courseId) => {
-  const response = await fetch(`${API_BASE_URL}/courses/${courseId}`);
-  if (!response.ok) {
-    throw new Error("خطا در دریافت اطلاعات دوره");
-  }
-  return await response.json();
+  return await api.get(`/courses/${courseId}`);
 };
 
 export const getCategories = async () => {
   try {
-    const response = await fetch(`${API_BASE_URL}/categories`);
-    if (response.ok) {
-      return await response.json();
-    }
-  } catch (err) {
+    return await api.get("/categories");
+  } catch (error) {
     console.warn(
-      "پاسخ از API دسته‌بندی‌ها دریافت نشد، استفاده از داده‌های پیش‌فرض.",
+      " به دلیل عدم دریافت از API استفاده از دسته بندی پیش فرض:",
+      error.message,
     );
+    return [
+      { id: 1, title: "زیست‌شناسی", slug: "biology" },
+      { id: 2, title: "ریاضیات", slug: "math" },
+      { id: 3, title: "فیزیک", slug: "physics" },
+      { id: 4, title: "شیمی", slug: "chemistry" },
+    ];
   }
-
-  return [
-    { id: 1, title: "زیست‌شناسی", slug: "biology", count: 12 },
-    { id: 2, title: "ریاضی و حسابان", slug: "math", count: 15 },
-    { id: 3, title: "فیزیک", slug: "physics", count: 10 },
-    { id: 4, title: "شیمی", slug: "chemistry", count: 8 },
-  ];
 };
 
 export const courseService = {

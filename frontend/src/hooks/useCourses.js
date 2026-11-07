@@ -1,29 +1,26 @@
 import { useState, useEffect } from "react";
 import { getCourses } from "../services/courseService";
 
-export const useCourses = () => {
+export const useCourses = (queryParams = "") => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const fetchCourses = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await getCourses(queryParams);
+      setCourses(data);
+    } catch (error) {
+      setError(error.message || "خطا در دریافت دوره ها از سرور");
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchCoursesData = async () => {
-      try {
-        setLoading(true);
-        const data = await getCourses();
-        setCourses(data);
-        setError(null);
-      } catch (err) {
-        setError(err.message || "خطایی در دریافت اطلاعات دوره‌ها رخ داد.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCoursesData();
-  }, []);
-
-  return { courses, loading, error };
+    fetchCourses();
+  }, [queryParams]);
+  return { courses, loading, error, refetch: fetchCourses };
 };
-
 export default useCourses;

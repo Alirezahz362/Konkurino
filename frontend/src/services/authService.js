@@ -1,37 +1,17 @@
-const API_URL = "http://localhost:5000/api/auth";
+import api from "./api";
 
 export const registerUser = async (userData) => {
-  const response = await fetch(`${API_URL}/register`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userData),
-  });
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || "خطایی در ثبت‌نام کاربر رخ داده است.");
-  }
-
-  return data;
+  return await api.post("/auth/register", userData);
 };
-
 export const loginUser = async (credentials) => {
-  const response = await fetch(`${API_URL}/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  });
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || "شماره موبایل یا رمز عبور اشتباه است.");
-  }
-
-  return data;
+  return await api.post("/auth/login", credentials);
 };
+export const getCurrentUser = async () => {
+  return await api.get("auth/me");
+};
+export const authService = {
+  registerUser,
+  loginUser,
+  getCurrentUser,
+};
+export default authService;
